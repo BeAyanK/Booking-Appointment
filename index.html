@@ -1,73 +1,45 @@
-<!DOCTYPE html>
+<!DOCTYPE html > <html lang="en">
+    <head>
+        <meta charset="UTF-8"> 
+        <meta http - equiv = "X-UA-Compatible" content = "IE=edge"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link rel = "icon" href = "images/1.png"> 
+        <title> Appointment </title>
 
-<html lang="en">
+        <style>
+            label {
+                margin-left: 2%;
+                padding: 5px;
+            }
+            input {
+                /*  border - color : #f4f4f4;
+    */ 
+                border: solid 1px;
+            }
+        </style > 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    </head>
 
-<head>
+    <body style="background-image: url(/images/appoint.jpg);background-size : cover;">
+        <form action = "#" id = "myForm" > 
+            <div class="container"> 
+                <div class = "row my-4" > 
+                    <div class="col-md-2"> </div>
+                    <div class="col-md-8">
+                        <div class="form1"style="border: solid 2px black; border-radius: 5px; background-color: #f4f4f4; align-content: center;">
+                            <h4 style="text-align: center; padding: 4px; color: #020122;">
+                                <u>Appointment Form</u >
+                            </h4> 
+                            <h6 style = "text-align: center;padding:3px;" > Book a call slot and our representatives will call you within 1 hr.of selected time </h6>
 
-    <meta charset="UTF-8">
+                            <hr>
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" href="images/1.png">
-
-    <title>Appointment</title>
-
-    <style>
-        label {
-
-            margin-left: 2%;
-
-            padding: 5px;
-
-        }
-
-        input {
-            /* border-color: #f4f4f4;  */
-            border: solid 1px;
-        }
-
-    </style>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-
-
-</head>
-
-<body style="background-image: url(/images/appoint.jpg); background-size: cover;">
-
-    <form action="#" id="myForm">
-
-        <div class="container">
-
-            <div class="row my-4">
-
-                <div class="col-md-2">
-
-                </div>
-
-                <div class="col-md-8">
-
-                    <div class="form1"
-                        style="border: solid 2px black; border-radius: 5px; background-color: #f4f4f4; align-content: center;">
-
-                        <h4 style="text-align: center; padding: 4px; color: #020122;"><u>Appointment Form</u></h4>
-
-                        <h6 style="text-align: center;padding:3px;">Book a call slot and our representatives will call
-                            you within 1 hr. of selected time</h6>
-                        <hr>
-
-                        <label>Name</label>
-                        <input type="text" style="width: 95%; margin-left: 2%; border-radius: 5px;" id="name"
-                            name="name" required>
-                        <label>Email</label>
+                        <label>Name</label > <input type="text" style="width: 95%; margin-left: 2%; border-radius: 5px;" id="name"
+                            name="name" required> <label > Email </label>
                         <input type="email" style="width: 95%; margin-left: 2%; border-radius: 5px;" id="mail"
                             name="mail" required>
-                        <label>Phone</label>
-                        <input type="tel" style="width: 95%; margin-left: 2%; border-radius: 5px;" id="phone"
-                            name="phone" required>
-                        <label>Time for Call</label>
+                        <label>Phone</label > <input type="tel" style="width: 95%; margin-left: 2%; border-radius: 5px;" id="phone"
+                            name="phone" required> <label > Time for Call </label>
                         <div class="row">
 
                             <div class="col">
@@ -75,43 +47,15 @@
                                 <input type="date" style="width: 90%; margin-left: 5%; border-radius: 5px;" id="date"
                                     name="date" required>
 
-                            </div>
-
-                            <div class="col">
-
-                                <input type="time" style="width: 90%; margin-left: 2%; border-radius: 5px;" id="time"
-                                    name="time" required>
-
-                            </div>
-
-                        </div>
+                            </div> <div class="col"> <input type = "time" style = "width: 90%; margin-left: 2%; border-radius: 5px;" id = "time" name = "time" required > </div> </div>
 
                         <input class="btn btn-dark" type="submit" value="Get a Call"
                             style="width:95%;margin:2%;background-color: #020122; ">
 
-                    </div>
-
-                    <br>
-                    <ul class="list-group" id="users"></ul>
-                </div>
+                    </div > <br> <ul class = "list-group" id = "users" > </ul> </div>
 
                 <div class="col-md-2">
-                </div>
+                </div > </div> </div>
+    </form > <script src = "https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-
-
-            </div>
-
-        </div>
-
-    </form>
-
-
-
-    <script src="script.js">
-
-    </script>
-
-</body>
-
-</html>
+    <script src="script.js"></script> </body> </html>

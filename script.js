@@ -5,11 +5,11 @@ form.addEventListener('submit', onCall);
 function onCall(e) {
     e.preventDefault();
 
-    let name = document.getElementById('name').value;//e.target.name.value;
-    let mail = document.getElementById('mail').value; //e.target.mail.value;
-    let phone = document.getElementById('phone').value; //e.target.phone.value;
-    let date = document.getElementById('date').value; //e.target.date.value;
-    let time = document.getElementById('time').value; //e.target.time.value;
+    let name = document.getElementById('name').value; // e.target.name.value;
+    let mail = document.getElementById('mail').value; // e.target.mail.value;
+    let phone = document.getElementById('phone').value; // e.target.phone.value;
+    let date = document.getElementById('date').value; // e.target.date.value;
+    let time = document.getElementById('time').value; // e.target.time.value;
     let items = document.querySelector('#users');
 
     let ul = document.querySelector('ul');
@@ -19,16 +19,26 @@ function onCall(e) {
         mail: mail,
         phone: phone,
         date: date,
-        time: time,
+        time: time
     };
 
 
     var userStr = JSON.stringify(user);
 
-    localStorage.setItem(mail, userStr);
+    // localStorage.setItem(mail, userStr);
+
+    axios.post('https://crudcrud.com/api/281da1e7e02545c7bcc2813a7783d1b3/appointments', user)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.error(error);
+        })
 
     ul.style.border = 'solid 2px black';
 
+    // var userPar = JSON.parse(localStorage.getItem(mail));
+    
     var userPar = JSON.parse(localStorage.getItem(mail));
 
     var li = document.createElement('li');
@@ -55,12 +65,9 @@ function onCall(e) {
     li.appendChild(editBtn);
 
 
-
-
     ul.appendChild(li);
 
-    function editItem() {
-        //Showing User Details on respective input field so that user can directly edit there. 
+    function editItem() { // Showing User Details on respective input field so that user can directly edit there.
         document.getElementById('name').value = name;
         document.getElementById('mail').value = mail;
         document.getElementById('phone').value = phone;
@@ -79,8 +86,7 @@ function onCall(e) {
     function removeItem() {
         // console.log(mail);
         // var mail = document.getElementById('mail').value;
-        if (confirm('Are You Sure?')) {
-            // console.log(mail);
+        if (confirm('Are You Sure?')) { // console.log(mail);
 
             ul.removeChild(li);
             localStorage.removeItem(mail);
@@ -96,7 +102,3 @@ function onCall(e) {
 
     document.querySelector('form').reset();
 }
-
-
-
-
