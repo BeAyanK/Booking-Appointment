@@ -4,7 +4,7 @@ var ul = document.querySelector('ul');
 
 form.addEventListener('submit', onCall);
 
-const apiUrl = 'https://crudcrud.com/api/c622a6e8ef8543cd84e9d5d8256c9be3/appointments';
+const apiUrl = 'https://crudcrud.com/api/eb1177677e4e492994d33a1d499c2f1c/appointments';
 
 
 window.addEventListener('load', function () {
@@ -102,9 +102,41 @@ function createAppointmentLi(userPar) {
         document.getElementById('time').value = userPar.time;
         document.getElementById('date').value = userPar.date;
 
-        ul.removeChild(li);
-        axios.delete(apiUrl + '/' + userPar._id).then(function (response) {
+        editBtn.removeEventListener('click', editItem);
+        editBtn.textContent = 'Save';
+        editBtn.addEventListener('click', updateItem);
+    }
+
+    function updateItem() {
+        var editedUser = {
+            name: document.getElementById('name').value,
+            mail: document.getElementById('mail').value,
+            phone: document.getElementById('phone').value,
+            date: document.getElementById('date').value,
+            time: document.getElementById('time').value
+        };
+
+        axios.put(apiUrl + '/' + userPar._id, editedUser).then(function (response) {
             console.log(response);
+            li.innerHTML = editedUser.name + ' ' + editedUser.mail + " " + editedUser.phone + ' ' + editedUser.date + ' ' + editedUser.time;
+            li.style.color = "black";
+            li.style.backgroundColor = '#f4f4f4';
+
+            var editBtn = document.createElement('button');
+            editBtn.type = 'button';
+            editBtn.className = 'btn btn-success btn-sm float-right edit';
+            editBtn.appendChild(document.createTextNode('Edit'));
+            editBtn.addEventListener('click', editItem);
+
+            var delBtn = document.createElement('button');
+            delBtn.type = 'button';
+            delBtn.className = 'btn btn-danger btn-sm float-right delete';
+            delBtn.appendChild(document.createTextNode('Delete'));
+            delBtn.addEventListener('click', removeItem);
+
+            li.appendChild(delBtn);
+            li.appendChild(editBtn);
+            document.querySelector('form').reset();
         }).catch(function (error) {
             console.error(error);
         });
@@ -112,7 +144,7 @@ function createAppointmentLi(userPar) {
 
 
     function removeItem() {
-        if (confirm('Are You Sure?')) {
+        if (confirm('Are you sure you want to delete?')) {
             ul.removeChild(li);
             axios.delete(apiUrl + '/' + userPar._id).then(function (response) {
                 console.log(response);
