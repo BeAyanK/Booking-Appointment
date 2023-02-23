@@ -1,6 +1,24 @@
 const form = document.querySelector('#myForm');
 
+var ul = document.querySelector('ul');
+
 form.addEventListener('submit', onCall);
+
+const apiUrl = 'https://crudcrud.com/api/c622a6e8ef8543cd84e9d5d8256c9be3/appointments';
+
+
+window.addEventListener('load', function () {
+    axios.get(apiUrl).then(function (response) {
+        const appointments = response.data;
+        for (const id in appointments) {
+            const appointment = appointments[id];
+            const li = createAppointmentLi(appointment);
+            // ul.appendChild(li);
+        }
+    }).catch(function (error) {
+        console.error(error);
+    });
+});
 
 function onCall(e) {
     e.preventDefault();
@@ -12,7 +30,6 @@ function onCall(e) {
     let time = document.getElementById('time').value; // e.target.time.value;
     let items = document.querySelector('#users');
 
-    let ul = document.querySelector('ul');
 
     let user = {
         name: name,
@@ -27,20 +44,30 @@ function onCall(e) {
 
     // localStorage.setItem(mail, userStr);
 
-    axios.post('https://crudcrud.com/api/281da1e7e02545c7bcc2813a7783d1b3/appointments', user)
-        .then(function (response) {
+    axios.post(apiUrl, user).then(function (response) {
+        console.log(response);
+
+
+        // var userPar = JSON.parse(localStorage.getItem(mail));
+
+        axios.get(apiUrl).then(function (response) {
             console.log(response);
-        })
-        .catch(function (error) {
+            var userPar = response.data[response.data.length - 1];
+
+            createAppointmentLi(userPar);
+
+        }).catch(function (error) {
             console.error(error);
         })
 
-    ul.style.border = 'solid 2px black';
+    }).catch(function (error) {
+        console.error(error);
+    })
 
-    // var userPar = JSON.parse(localStorage.getItem(mail));
-    
-    var userPar = JSON.parse(localStorage.getItem(mail));
+    document.querySelector('form').reset();
+}
 
+function createAppointmentLi(userPar) {
     var li = document.createElement('li');
     li.className = 'list-group-item';
     li.appendChild(document.createTextNode(JSON.parse(localStorage.getItem(mail))));
@@ -60,45 +87,38 @@ function onCall(e) {
     delBtn.appendChild(document.createTextNode('Delete'));
     delBtn.addEventListener('click', removeItem);
 
-
     li.appendChild(delBtn);
     li.appendChild(editBtn);
 
-
     ul.appendChild(li);
 
+    ul.style.border = 'solid 2px black';
+    ul.style.borderRadius = '5px';
+
     function editItem() { // Showing User Details on respective input field so that user can directly edit there.
-        document.getElementById('name').value = name;
-        document.getElementById('mail').value = mail;
-        document.getElementById('phone').value = phone;
-        document.getElementById('time').value = time;
-        document.getElementById('date').value = date;
-        // console.log(mail);
-        localStorage.removeItem(mail);
-        // ul.array.forEach(li => {
-        //     if (li.mail === mail) {
-        //         ul.removeChild(li);
-        //     }
-        // });
+        document.getElementById('name').value = userPar.name;
+        document.getElementById('mail').value = userPar.mail;
+        document.getElementById('phone').value = userPar.phone;
+        document.getElementById('time').value = userPar.time;
+        document.getElementById('date').value = userPar.date;
+
+        ul.removeChild(li);
+        axios.delete(apiUrl + '/' + userPar._id).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.error(error);
+        });
     }
 
 
     function removeItem() {
-        // console.log(mail);
-        // var mail = document.getElementById('mail').value;
-        if (confirm('Are You Sure?')) { // console.log(mail);
-
+        if (confirm('Are You Sure?')) {
             ul.removeChild(li);
-            localStorage.removeItem(mail);
+            axios.delete(apiUrl + '/' + userPar._id).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.error(error);
+            });
         }
     }
-    // for (var i = 0; i < items.length; i++) {
-    //     if (items[i].mail === mail) {
-    //         ul.removeChild(items[i]);
-
-    //     }
-    //     console.log(items[i].mail);
-    // }
-
-    document.querySelector('form').reset();
 }
